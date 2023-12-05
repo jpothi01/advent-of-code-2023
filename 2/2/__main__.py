@@ -37,9 +37,11 @@ def parse_game(line: str) -> tuple[int, Game]:
     ])
 
 
-def game_possible(bag_contents: tuple[int, int, int], game: Game) -> bool:
-    return all(game[i][j] <= bag_contents[j] for i in range(len(game)) for j in range(3))
+def min_bag_contents(game: Game) -> tuple[int, int, int]:
+    return tuple(max(round[color] for round in game) for color in range(3))
 
+def power(bag_contents: tuple[int, int, int]) -> int:
+    return bag_contents[0] * bag_contents[1] * bag_contents[2]
 
 sum = 0
 bag_contents = (12, 13, 14)
@@ -49,13 +51,12 @@ assert parse_game("Game 10: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green") == 
     (1, 2, 6),
     (0, 2, 0)
 ])
-assert not game_possible(bag_contents, parse_game("Game 4: 1 green, 3 red, 6 blue; 3 green, 6 red; 3 green, 15 blue, 14 red")[1])
-assert game_possible(bag_contents, parse_game("Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green")[1])
+
+assert min_bag_contents(parse_game("Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green")[1]) == (4, 2, 6)
 
 with open("2/input.txt") as f:
     for line in f.readlines():
         game_id, game = parse_game(line)
-        if game_possible(bag_contents, game):
-            sum += game_id
+        sum += power(min_bag_contents(game))
 
 print(sum)
