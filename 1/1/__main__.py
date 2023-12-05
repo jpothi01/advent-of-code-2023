@@ -17,7 +17,7 @@ def calibration_value(line: str) -> int:
     assert first_digit and last_digit
     return int(first_digit + last_digit)
 
-with open("1/input.txt") as f:
+with open("1/1/input.txt") as f:
     for line in f.readlines():
         sum += calibration_value(line)
 
