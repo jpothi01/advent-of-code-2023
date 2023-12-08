@@ -26,7 +26,7 @@ assert parse_input(EXAMPLE) == [(71530, 940200)]
 # d = s * (T - s) = Ts - s^2
 
 # So it's an upside-down parabola.
-# Now let's take a to be the record distance.
+# Now let's take D to be the record distance.
 # To find the values of s that produce d > D, we only need to find the first
 # value that produces d > D then the first value after that value that produces d < D,
 # since we know the parabola will only cross a once. We can do this by finding
